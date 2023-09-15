@@ -1,12 +1,16 @@
 import img from "../../../assets/About/online_job_seach_portal_features.jpg";
 import logo from '../../../assets/About/check-mark.png';
+import { useAOS } from "../../../hooks/useAOS";
 
 const AboutUs = () => {
+    
+    useAOS();
+
     return (
         <div className="my-20 p-7">
-            <h1 className="text-center text-xl font-semibold mb-8"> About Us </h1>
+            <h1 className="text-center text-xl font-semibold mb-8" data-aos="flip-left"> About Us </h1>
 
-            <div className="flex gap-12 my-16 p-7 w-3/4 mx-auto shadow-gray-300 shadow-md rounded-lg">
+            <div className="flex gap-12 my-16 p-7 w-3/4 mx-auto shadow-gray-300 shadow-md rounded-lg" data-aos="fade-left">
 
                 <div className="flex items-center ">
                     <img src={img} className="w-fit rounded-lg" alt="" />

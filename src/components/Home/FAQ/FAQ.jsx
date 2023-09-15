@@ -1,13 +1,22 @@
+import { useAOS } from "../../../hooks/useAOS";
 
 
 const FAQ = () => {
+
+    useAOS();
+
     return (
         <div className="my-28">
 
-            <h1 className="text-center text-xl font-semibold my-8"> Frequently Asked Questions </h1>
+            <h1 className="text-center text-xl font-semibold my-8" data-aos="flip-up"> Frequently Asked Questions </h1>
 
 
-            <div className="my-16 w-[94%] mx-auto">
+            <div className="my-16 w-[94%] mx-auto"
+                data-aos="fade-left"
+                data-aos-anchor="#example-anchor"
+                data-aos-offset="500"
+                data-aos-duration="1000"
+            >
                 <details
                     className="group border-s-4 border-green-500 bg-gray-50 p-6 [&_summary::-webkit-details-marker]:hidden"
                     open
