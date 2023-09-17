@@ -1,26 +1,50 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../../../assets/Entry/download (1).png';
 import { useForm } from "react-hook-form";
+import { useContext, useState } from 'react';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { toast } from 'react-toastify';
+
 
 const Register = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const [btnDsiabled, setBtnDisabled] = useState(false);
+    const { userCreate, profileUpdate } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = data => {
-        console.log(data);
+        setBtnDisabled(true);
+        const { fname, lname, email, password, type } = data;
+
+        userCreate(email, password)
+            .then(() => {
+                const fullName = fname + " " + lname;
+                profileUpdate(fullName)
+                    .then(() => {
+                        toast.success(`Welcome to you ${fullName} in career matcher pro`)
+                        navigate("/");
+                    })
+            })
+            .catch(err => {
+                toast.error(err.message);
+            })
+
+        setBtnDisabled(false);
+        reset();
     }
 
     return (
 
         <div className='flex justify-center items-center gap-7 flex-row-reverse w-[94%] mx-auto'>
 
-                <div className="w-[85%] border-2 border-l-gray-500 border-t-purple-500 border-r-indigo-500 border-b-blue-500 bg-[#242424] mt-20 p-7 rounded-md">
-                    <img src={img} alt="" className='w-40 rounded-lg' />                
-                        <h1 className='my-8 text-3xl font-bold text-white'> SignUp </h1>
+            <div className="w-[85%] border-2 border-l-gray-500 border-t-purple-500 border-r-indigo-500 border-b-blue-500 bg-[#242424] mt-20 p-7 rounded-md">
+                <img src={img} alt="" className='w-40 rounded-lg' />
+                <h1 className='my-8 text-3xl font-bold text-white'> SignUp </h1>
 
-                        <p className='text-white w-3/4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae error iste expedita!</p>
-                </div>
-        
+                <p className='text-white w-3/4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae error iste expedita!</p>
+            </div>
+
             <div className='border-2 border-slate-50 shadow-md p-7 mt-20 rounded-md'>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -60,7 +84,9 @@ const Register = () => {
                     </div>
 
                     <div className='text-center'>
-                        <button type='submit' className='bg-indigo-700 my-3 px-5 py-2 text-white rounded-lg'> Sign Up </button>
+                        <button type='submit' className='bg-indigo-700 my-3 px-5 py-2 text-white rounded-lg'
+                            disabled={btnDsiabled}
+                        > Sign Up </button>
                     </div>
 
                 </form>
