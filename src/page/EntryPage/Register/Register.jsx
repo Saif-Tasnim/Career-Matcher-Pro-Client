@@ -12,16 +12,15 @@ const Register = () => {
 
     return (
 
-        <div className='flex justify-center items-center gap-12 flex-row-reverse'>
+        <div className='flex justify-center items-center gap-7 flex-row-reverse w-[94%] mx-auto'>
 
-            <div className="w-1/3 border-2 border-l-gray-500 border-t-purple-500 border-r-indigo-500 border-b-blue-500 bg-[#242424] mt-20 p-7 rounded-md">
-                <img src={img} alt="" className='w-40 rounded-lg' />
+                <div className="w-[85%] border-2 border-l-gray-500 border-t-purple-500 border-r-indigo-500 border-b-blue-500 bg-[#242424] mt-20 p-7 rounded-md">
+                    <img src={img} alt="" className='w-40 rounded-lg' />                
+                        <h1 className='my-8 text-3xl font-bold text-white'> SignUp </h1>
 
-                <h1 className='my-8 text-3xl font-bold text-white'> SignUp </h1>
-
-                <p className='text-white w-3/4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae error iste expedita!</p>
-            </div>
-
+                        <p className='text-white w-3/4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae error iste expedita!</p>
+                </div>
+        
             <div className='border-2 border-slate-50 shadow-md p-7 mt-20 rounded-md'>
                 <form onSubmit={handleSubmit(onSubmit)}>
 

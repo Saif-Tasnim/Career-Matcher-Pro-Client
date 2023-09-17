@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import img from '../../../assets/Entry/download.png';
 import { useForm } from "react-hook-form";
+import { Fade, Slide } from "react-awesome-reveal";
 
 const LogIn = () => {
 
@@ -12,15 +13,21 @@ const LogIn = () => {
 
     return (
 
-        <div className='flex justify-center items-center gap-12'>
+        <div className='flex justify-center items-center'>
 
-            <div className="w-1/3 border-2 border-l-gray-500 border-t-purple-500 border-r-indigo-500 border-b-blue-500 bg-[#242424] mt-20 p-7 rounded-md">
-                <img src={img} alt="" className='w-40 rounded-lg' />
+            <Slide>
+                <div className="w-[85%] border-2 border-l-gray-500 border-t-purple-500 border-r-indigo-500 border-b-blue-500 bg-[#242424] mt-20 p-7 rounded-md">
+                    <img src={img} alt="" className='w-40 rounded-lg' />
 
-                <h1 className='my-8 text-3xl font-bold text-white'> Log In </h1>
+                    <Fade delay={1e3} cascade damping={1e-1}>
+                        <h1 className='my-8 text-3xl font-bold text-white'> Log In </h1>
+                       
+                        <p className='text-white w-3/4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae error iste expedita!</p>
+                        </Fade>
+                </div>
 
-                <p className='text-white w-3/4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae error iste expedita!</p>
-            </div>
+            </Slide>
+
 
             <div className='border-2 border-slate-50 shadow-md p-7 mt-20 rounded-md'>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +51,7 @@ const LogIn = () => {
                 </form>
 
                 <div className='my-4'>
-                    New To Our Site ? Wanna Go To <Link to="/signup" className='px-1 font-bold text-blue-500'> Sign Up </Link> ? 
+                    New To Our Site ? Wanna Go To <Link to="/signup" className='px-1 font-bold text-blue-500'> Sign Up </Link> ?
                 </div>
             </div>
 
