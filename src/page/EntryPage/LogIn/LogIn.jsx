@@ -1,14 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../../../assets/Entry/download.png';
 import { useForm } from "react-hook-form";
 import { Fade, Slide } from "react-awesome-reveal";
+import { useContext } from 'react';
+import { AuthContext } from '../../../AuthProvider/AuthProvider';
+import { toast } from 'react-toastify';
 
 const LogIn = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = data => {
-        console.log(data);
+        
+        if(data.email === user?.email){
+            if(user.emailVerified === false){
+                return toast.error("You have not verified your email");
+            }
+        }
+
+        toast.success(`Welcome to you ${user.displayName} in career matcher pro`);
+        navigate('/dashboard')
+
     }
 
     return (

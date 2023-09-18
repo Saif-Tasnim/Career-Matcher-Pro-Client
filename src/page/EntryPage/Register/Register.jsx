@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { toast } from 'react-toastify';
+import { sendEmailVerification } from 'firebase/auth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 
 const Register = () => {
@@ -12,19 +14,33 @@ const Register = () => {
     const [btnDsiabled, setBtnDisabled] = useState(false);
     const { userCreate, profileUpdate } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [axiosSecure] = useAxiosSecure();
 
     const onSubmit = data => {
         setBtnDisabled(true);
-        const { fname, lname, email, password, type } = data;
+        const { fname, lname, email, password } = data;
 
         userCreate(email, password)
-            .then(() => {
-                const fullName = fname + " " + lname;
-                profileUpdate(fullName)
-                    .then(() => {
-                        toast.success(`Welcome to you ${fullName} in career matcher pro`)
-                        navigate("/");
+            .then((res) => {
+                sendEmailVerification(res.user)
+                    .then(() => {                    
+                        const fullName = fname + " " + lname;
+                        profileUpdate(fullName)
+                            .then(async () => {
+                                const result = await axiosSecure.post("/user", data);
+                                if (result.data.insertedId) {
+                                    toast.success(`A verification mail has sent to your given account. Please Verify first`)
+                                    navigate("/login");
+                                }
+
+                                else {
+                                    toast.error("User Already Exists.")
+                                }
+
+                            })
+
                     })
+
             })
             .catch(err => {
                 toast.error(err.message);

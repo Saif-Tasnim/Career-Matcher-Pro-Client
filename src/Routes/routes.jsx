@@ -7,6 +7,8 @@ import Main from "../layout/Main";
 import HomePage from "../page/HomePage/HomePage";
 import LogIn from "../page/EntryPage/LogIn/LogIn";
 import Register from "../page/EntryPage/Register/Register";
+import UserLayout from "../layout/UserLayout";
+import UserPage from "../page/UserPage/UserPage";
 
 
 export const routes = createBrowserRouter(
@@ -24,14 +26,27 @@ export const routes = createBrowserRouter(
         },
 
         {
-            path: '/login',
+            path: 'login',
             element: <LogIn></LogIn>,
             errorElement: <ErrorPage></ErrorPage>
         },
 
         {
-            path: '/signup',
+            path: 'signup',
             element: <Register></Register>,
+            errorElement: <ErrorPage></ErrorPage>
+        },
+
+        {
+            path: 'dashboard',
+            element: <UserLayout></UserLayout>,
+            children: [
+                {
+                    path: 'dashboard',
+                    element: <UserPage></UserPage>
+                }
+
+            ],
             errorElement: <ErrorPage></ErrorPage>
         }
     ]

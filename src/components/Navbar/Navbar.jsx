@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../common/Button/Button";
 import { useGsap } from "../../hooks/useGsap";
-import { useEffect, useRef } from "react";
+import {useEffect, useRef } from "react";
 
 
 const Navbar = () => {
@@ -45,7 +45,7 @@ const Navbar = () => {
                         translate-y-0
                         "
                             ref={el => logo = el}
-                             
+
                         >
                             <h1 className="text-2xl font-bold sm:text-3xl"
                             >
@@ -54,24 +54,23 @@ const Navbar = () => {
                         </div>
                     </Link>
 
-                    <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center list-none">
+               
+                        <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center list-none">
 
-                        <li className="px-3" ref={el => link1 = el}>
-                            <Link to="/"> Home </Link>
-                        </li>
+                            <li className="px-3" ref={el => link1 = el}>
+                                <Link to="/"> Home </Link>
+                            </li>
 
-                        <li className="px-3" ref={el => link2 = el}>
-                            <Link to="/"> See Jobs </Link>
-                        </li>
-                        <li className="px-3" ref={el => link3 = el}>
-                            <Link to="/"> Take Job Preparations </Link>
-                        </li>
-
-
-                    </div>
+                            <li className="px-3" ref={el => link2 = el}>
+                                <Link to="/"> See Jobs </Link>
+                            </li>
+                            <li className="px-3" ref={el => link3 = el}>
+                                <Link to="/"> Take Job Preparations </Link>
+                            </li>
+                        </div>
 
                     <div className="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center" ref={el => login = el}>
-                        <Button key="/login" path='/login' title="Login"></Button>
+                        <Button key="/login" path='/login' title="Log In"></Button>
                     </div>
                 </div>
             </div >
