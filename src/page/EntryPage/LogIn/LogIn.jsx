@@ -5,24 +5,34 @@ import { Fade, Slide } from "react-awesome-reveal";
 import { useContext } from 'react';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { toast } from 'react-toastify';
+import ProgresBar from '../../../components/common/ProgresBar/ProgresBar';
 
 const LogIn = () => {
 
+    const { user, login, loading } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {user} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = data => {
-        
-        if(data.email === user?.email){
-            if(user.emailVerified === false){
+
+        if (data.email === user?.email) {
+            if (user.emailVerified === false) {
                 return toast.error("You have not verified your email");
             }
         }
 
-        toast.success(`Welcome to you ${user.displayName} in career matcher pro`);
-        navigate('/dashboard')
+        login(data.email, data.password)
+            .then((res) => {
+                toast.success(`Welcome to you ${res.user?.displayName} in career matcher pro`);
+                navigate('/dashboard/dashboard')
+            })
 
+
+
+    }
+
+    if (loading) {
+        return <ProgresBar></ProgresBar>
     }
 
     return (
@@ -35,9 +45,9 @@ const LogIn = () => {
 
                     <Fade delay={1e3} cascade damping={1e-1}>
                         <h1 className='my-8 text-3xl font-bold text-white'> Log In </h1>
-                       
+
                         <p className='text-white w-3/4'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae error iste expedita!</p>
-                        </Fade>
+                    </Fade>
                 </div>
 
             </Slide>

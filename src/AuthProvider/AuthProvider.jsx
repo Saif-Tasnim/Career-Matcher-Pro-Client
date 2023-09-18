@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import axios from "axios";
 
@@ -19,9 +19,15 @@ const AuthProvider = ({ children }) => {
 
 
     const profileUpdate = (name) => {
+        setLoading(true);
         return updateProfile(auth.currentUser, {
             displayName: name,
         })
+    }
+
+    const login = (email, password) => {
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password);
     }
 
     const logOut = () => {
@@ -45,7 +51,7 @@ const AuthProvider = ({ children }) => {
 
             else {
                 localStorage.removeItem("access-token");
-                
+
             }
         })
 
@@ -57,6 +63,7 @@ const AuthProvider = ({ children }) => {
         loading,
         userCreate,
         profileUpdate,
+        login,
         logOut
     }
 
