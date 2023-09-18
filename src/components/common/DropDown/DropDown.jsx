@@ -28,7 +28,7 @@ const DropDown = () => {
                 <div className="flex flex-col gap-y-2 absolute bg-[#242424] p-6 right-0">
                     <Link to="/profile" className="dropdown-item text-sm mt-3"> Profile </Link>
                     <Link to="/profile" className="dropdown-item text-sm mt-3">Your Notes </Link>
-                    <Link className="dropdown-item text-sm" onClick={handleLogOut} > LogOut </Link>
+                    <Link className="dropdown-item text-sm mt-3" onClick={handleLogOut} > LogOut </Link>
 
                 </div>
             }
