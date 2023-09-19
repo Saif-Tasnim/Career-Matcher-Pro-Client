@@ -62,10 +62,10 @@ const Navbar = () => {
                             </li>
 
                             <li className="px-3" ref={el => link2 = el}>
-                                <Link to="/"> See Jobs </Link>
+                                <Link to="/searchJobs"> See Jobs </Link>
                             </li>
                             <li className="px-3" ref={el => link3 = el}>
-                                <Link to="/"> Take Job Preparations </Link>
+                                <Link to="/jobPreparation"> Take Job Preparations </Link>
                             </li>
                         </div>
 

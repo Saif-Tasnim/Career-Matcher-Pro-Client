@@ -29,7 +29,7 @@ const HotSlider = () => {
             >
                 {
                     arr.map(a =>
-                        <SwiperSlide key={a} className='border-2 border-red-400 p-4 rounded-lg'>
+                        <SwiperSlide key={a} className='border-2 border-gray-300 shadow-xl p-4 rounded-lg'>
                             <h1 className='font-bold my-2'> Python Developer </h1>
                             <h3 className='mb-4'> Amazon Ltd. </h3>
                             <hr />

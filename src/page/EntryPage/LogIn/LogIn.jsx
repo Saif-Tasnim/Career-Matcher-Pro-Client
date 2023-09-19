@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import img from '../../../assets/Entry/download.png';
 import { useForm } from "react-hook-form";
 import { Fade, Slide } from "react-awesome-reveal";
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../../AuthProvider/AuthProvider';
 import { toast } from 'react-toastify';
 import ProgresBar from '../../../components/common/ProgresBar/ProgresBar';
@@ -10,13 +10,23 @@ import ProgresBar from '../../../components/common/ProgresBar/ProgresBar';
 const LogIn = () => {
 
     const { user, login, loading } = useContext(AuthContext);
+    const [btnDisabled , setBtnDisabled] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/dashboard/dashboard";
+
+    if(location.state?.from?.pathname){
+      toast.error("You have not logged in. Please Login First")
+    }
 
     const onSubmit = data => {
-
+        setBtnDisabled(true);
+        
         if (data.email === user?.email) {
             if (user.emailVerified === false) {
+                setBtnDisabled(false);
                 return toast.error("You have not verified your email");
             }
         }
@@ -24,12 +34,11 @@ const LogIn = () => {
         login(data.email, data.password)
             .then((res) => {
                 toast.success(`Welcome to you ${res.user?.displayName} in career matcher pro`);
-                navigate('/dashboard/dashboard')
+                navigate(from, { replace: true });
             })
 
 
-
-    }
+   }
 
     if (loading) {
         return <ProgresBar></ProgresBar>
@@ -69,7 +78,9 @@ const LogIn = () => {
                     </div>
 
                     <div className='text-center'>
-                        <button type='submit' className='bg-indigo-700 my-5 px-5 py-2 text-white rounded-lg'>Log In</button>
+                        <button type='submit' className='bg-indigo-700 my-5 px-5 py-2 text-white rounded-lg'
+                        disabled = {btnDisabled}
+                        >Log In</button>
                     </div>
 
                 </form>

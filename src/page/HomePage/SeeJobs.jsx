@@ -1,8 +1,7 @@
 import SearchJobs from "../../components/common/SearchJobs/SearchJobs";
 
 
-const UserPage = () => {
-    
+const SeeJobs = () => {
     return (
         <div>
             <SearchJobs></SearchJobs>
@@ -10,4 +9,4 @@ const UserPage = () => {
     );
 };
 
-export default UserPage;
+export default SeeJobs;

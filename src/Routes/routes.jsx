@@ -9,6 +9,10 @@ import LogIn from "../page/EntryPage/LogIn/LogIn";
 import Register from "../page/EntryPage/Register/Register";
 import UserLayout from "../layout/UserLayout";
 import UserPage from "../page/UserPage/UserPage";
+import SeeJobs from "../page/HomePage/SeeJobs";
+import PrivateRoutes from "./PrivateRoutes";
+import JobPreparation from "../page/HomePage/JobPreparation";
+import PostJob from "../page/UserPage/PostJob";
 
 
 export const routes = createBrowserRouter(
@@ -20,7 +24,15 @@ export const routes = createBrowserRouter(
                 {
                     path: "/",
                     element: <HomePage></HomePage>
-                }
+                },
+                {
+                    path: "searchJobs",
+                    element: <SeeJobs></SeeJobs>
+                },
+                {
+                    path: "jobPreparation",
+                    element: <PrivateRoutes><JobPreparation></JobPreparation></PrivateRoutes>
+                },
             ],
             errorElement: <ErrorPage></ErrorPage>
         },
@@ -44,7 +56,11 @@ export const routes = createBrowserRouter(
                 {
                     path: 'dashboard',
                     element: <UserPage></UserPage>
-                }
+                },
+                {
+                    path: 'postJob',
+                    element: <PostJob></PostJob>
+                },
 
             ],
             errorElement: <ErrorPage></ErrorPage>
