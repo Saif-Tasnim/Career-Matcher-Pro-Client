@@ -48,7 +48,7 @@ const UserNav = () => {
                     <div className='flex items-center gap-6 list-none'>
                         <li><Link to='/dashboard/dashboard'> Dashboard </Link> </li>
                         <li><Link to='/dashboard/postJob'> Post A Job </Link> </li>
-                        <li><Link to='/dashboard/dashboard'> See Your Post </Link> </li>
+                        <li><Link to='/dashboard/donorJobs'> See Your Post </Link> </li>
                     </div>
 
                 }

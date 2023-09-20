@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import {
     createBrowserRouter,
 } from "react-router-dom";
@@ -13,6 +14,8 @@ import SeeJobs from "../page/HomePage/SeeJobs";
 import PrivateRoutes from "./PrivateRoutes";
 import JobPreparation from "../page/HomePage/JobPreparation";
 import PostJob from "../page/UserPage/PostJob";
+import DonorJobs from "../page/UserPage/DonorJobs";
+import SingleJob from "../page/UserPage/SingleJob";
 
 
 export const routes = createBrowserRouter(
@@ -60,6 +63,14 @@ export const routes = createBrowserRouter(
                 {
                     path: 'postJob',
                     element: <PostJob></PostJob>
+                },
+                {
+                    path: 'donorJobs',
+                    element: <DonorJobs></DonorJobs>
+                },
+                {
+                    path: 'donorJobs/:id',
+                    element: <SingleJob></SingleJob>
                 },
 
             ],

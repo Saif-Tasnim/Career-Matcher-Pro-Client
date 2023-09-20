@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, updateProfile, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import axios from "axios";
+import ProgresBar from "../components/common/ProgresBar/ProgresBar";
 
 export const AuthContext = createContext(null);
 
@@ -65,6 +66,10 @@ const AuthProvider = ({ children }) => {
         profileUpdate,
         login,
         logOut
+    }
+
+    if (loading) {
+        return <ProgresBar></ProgresBar>
     }
 
     return (

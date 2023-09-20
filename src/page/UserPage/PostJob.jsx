@@ -2,15 +2,26 @@ import { useContext } from 'react';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { AuthContext } from '../../AuthProvider/AuthProvider';
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { toast } from 'react-toastify';
 
 const PostJob = () => {
 
     const animatedComponents = makeAnimated();
     const { user } = useContext(AuthContext);
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        console.log(data)
+    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const [axiosSecure] = useAxiosSecure();
+
+    const onSubmit = async (data) => {
+        //    const {companyDescription, companyName,donorPosition,email,experience,jobDescription,jobPosition,jobType,location,name,responsibility,skill} = data ;
+
+        const res = await axiosSecure.post('/postJob', data);
+        if (res.data.insertedId) {
+            toast.success("Your Post is pending for admin verification")
+        }
+
+
     };
 
     const options = [
@@ -33,6 +44,9 @@ const PostJob = () => {
         { value: 'PostGreSql', label: 'PostGreSql' },
         { value: 'MongoDb', label: 'MongoDb' },
         { value: 'GraphQL', label: 'GraphQL' },
+        { value: 'Django', label: 'Django' },
+        { value: 'Html', label: 'Html' },
+        { value: 'Css', label: 'Css' },
     ]
 
     const jobType = [
@@ -84,30 +98,43 @@ const PostJob = () => {
                     <div className="mt-8 mb-3">
                         <div className=' flex gap-12'>
                             <label htmlFor="" className="pt-2"> Required Skills </label>
-                            <Select
-                                closeMenuOnSelect={false}
-                                components={animatedComponents}
-                                isMulti
-                                options={options}
-                                className='w-1/2'
-                                // {...register("skill", { required: true })}
-                            ></Select>
+                            <Controller
+                                {...register("skill", { required: true })}
+                                control={control}
+                                render={({ field }) => (
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        components={animatedComponents}
+                                        isMulti
+                                        options={options}
+                                        className='w-1/2'
+                                        {...field} // Spread the field props
+                                    />
+                                )}
+                            ></Controller>
                         </div>
-                        {/* {errors.skill?.type === 'required' && <p role="alert" className='text-red-400 mt-5 ml-44'> Skill is required </p>} */}
+                        {errors.skill?.type === 'required' && <p role="alert" className='text-red-400 mt-5 ml-44'> Skill is required </p>}
 
                     </div>
 
                     <div className="mt-8 mb-3 ">
                         <div className='flex gap-12'>
                             <label htmlFor="" className="pt-2"> Job Type </label>
-                            <Select className='w-1/2'
-                                options={jobType}
-                                // {...register("jobType", { required: true })}
-                            >
-
-                            </Select>
+                            <Controller
+                                {...register("jobType", { required: true })}
+                                control={control} // Pass the control object from useForm
+                                render={({ field }) => (
+                                    <Select
+                                        closeMenuOnSelect={false}
+                                        components={animatedComponents}
+                                        options={jobType}
+                                        className='w-1/2'
+                                        {...field} // Spread the field props
+                                    />
+                                )}
+                            />
                         </div>
-                        {/* {errors.jobType?.type === 'required' && <p role="alert" className='text-red-400 mt-5 ml-44'> Job Type is required </p>} */}
+                        {errors.jobType?.type === 'required' && <p role="alert" className='text-red-400 mt-5 ml-44'> Job Type is required </p>}
 
                     </div>
 
@@ -137,6 +164,20 @@ const PostJob = () => {
                             ></textarea>
                         </div>
                         {errors.companyName?.type === 'required' && <p role="alert" className='text-red-400 mt-5 ml-44'> Key Responsibility is required </p>}
+                    </div>
+
+                    <div className="mt-8 mb-3 ">
+                        <div className='flex gap-12'>
+                            <label htmlFor="" className="pt-2"> Salary </label>
+                            <input
+                                type="number"
+                                id="UserEmail"
+                                placeholder="Salary / monthly"
+                                className="w-3/4 rounded-md border-gray-200 shadow-sm sm:text-sm p-3"
+                                {...register("salary", { required: true })}
+                            />
+                        </div>
+                        {errors.salary?.type === 'required' && <p role="alert" className='text-red-400 mt-5 ml-44'> Salary is required </p>}
                     </div>
 
                 </div>
